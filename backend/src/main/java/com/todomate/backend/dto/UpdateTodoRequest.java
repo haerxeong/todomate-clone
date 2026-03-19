@@ -1,4 +1,12 @@
 package com.todomate.backend.dto;
 
-public class UpdateTodoRequest {
+import java.time.LocalDate;
+
+public record UpdateTodoRequest(
+    String userId,
+    String categoryId,
+    String text,
+    LocalDate todoDate,
+    Boolean done
+) {
 }

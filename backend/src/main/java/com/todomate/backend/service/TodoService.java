@@ -4,6 +4,7 @@ import com.todomate.backend.domain.Category;
 import com.todomate.backend.domain.Todo;
 import com.todomate.backend.domain.User;
 import com.todomate.backend.dto.TodoListResponse;
+import com.todomate.backend.dto.UpdateTodoRequest;
 import com.todomate.backend.repository.CategoryRepository;
 import com.todomate.backend.repository.TodoRepository;
 import com.todomate.backend.repository.UserRepository;
@@ -80,6 +81,38 @@ public class TodoService {
     return todos.stream()
         .map(TodoListResponse::from)
         .toList();
+  }
+
+  @Transactional
+  public TodoResponse updateTodo(String todoId, UpdateTodoRequest request) {
+    if (request.userId() == null || request.userId().isBlank()) {
+      throw new IllegalArgumentException("userId는 필수입니다.");
+    }
+
+    Todo todo = todoRepository.findByIdAndUserId(todoId, request.userId())
+        .orElseThrow(() -> new EntityNotFoundException("할 일을 찾을 수 없습니다."));
+
+    if (request.categoryId() != null && request.categoryId().isBlank()) {
+      todo.updateCategory(null);
+    } else if (request.categoryId() != null) {
+      Category category = categoryRepository.findByIdAndUserId(request.categoryId(), request.userId())
+          .orElseThrow(() -> new EntityNotFoundException("카테고리를 찾을 수 없거나 해당 사용자의 카테고리가 아닙니다."));
+      todo.updateCategory(category);
+    }
+
+    if (request.text() != null) {
+      todo.updateText(request.text());
+    }
+
+    if (request.todoDate() != null) {
+      todo.updateTodoDate(request.todoDate());
+    }
+
+    if (request.done() != null) {
+      todo.toggleDone();
+    }
+
+    return TodoResponse.from(todo);
   }
 
   private void validateCategoryOwner(String userId, String categoryId) {

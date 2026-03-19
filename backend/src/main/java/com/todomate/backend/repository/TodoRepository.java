@@ -3,6 +3,7 @@ package com.todomate.backend.repository;
 import com.todomate.backend.domain.Todo;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -27,4 +28,6 @@ public interface TodoRepository extends JpaRepository<Todo, String> {
       LocalDate todoDate,
       String categoryId
   );
+
+  Optional<Todo> findByIdAndUserId(String id, String userId);
 }
