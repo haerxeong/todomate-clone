@@ -1,4 +1,3 @@
-// components/FriendList.jsx
 import Avatar from './Avatar'
 
 export default function FriendList({ friends, selectedId, onSelect }) {

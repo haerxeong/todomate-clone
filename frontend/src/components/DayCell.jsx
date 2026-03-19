@@ -1,4 +1,3 @@
-// components/DayCell.jsx
 import { dayStats } from '../constants/data'
 
 export default function DayCell({ day, year, month, todayDay, selected, todos, onClick }) {

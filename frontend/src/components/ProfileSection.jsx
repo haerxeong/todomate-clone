@@ -1,12 +1,19 @@
-// components/ProfileSection.jsx
-
 export default function ProfileSection({ friend }) {
     return (
         <div className="profile-section">
             <div className="profile-info">
                 <div className="profile-avatar">
-                    {friend.avatar ? (
-                        <span style={{ fontSize: 26 }}>{friend.avatar}</span>
+                    {friend.profileImg ? (
+                        <img
+                            src={friend.profileImg}
+                            alt={friend.name}
+                            style={{
+                                width: 26,
+                                height: 26,
+                                borderRadius: '50%',
+                                objectFit: 'cover',
+                            }}
+                        />
                     ) : (
                         <svg width="26" height="26" viewBox="0 0 22 22" fill="none">
                             <circle cx="11" cy="8" r="4" fill="#bbb" />
@@ -22,7 +29,9 @@ export default function ProfileSection({ friend }) {
 
                 <div>
                     <div className="profile-name">{friend.name}</div>
-                    <div className="profile-bio">프로필에 자기소개를 입력해보세요</div>
+                    <div className="profile-bio">
+                        {friend.bio || '프로필에 자기소개를 입력해보세요'}
+                    </div>
                 </div>
             </div>
 

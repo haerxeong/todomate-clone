@@ -1,6 +1,6 @@
-// components/Avatar.jsx
-
 export default function Avatar({ friend, size = 42, selected }) {
+    const hasImage = !!friend.profileImg
+
     return (
         <div
             style={{
@@ -25,10 +25,15 @@ export default function Avatar({ friend, size = 42, selected }) {
                     fontSize: size * 0.42,
                     transition: 'all 0.15s',
                     boxShadow: selected ? '0 3px 12px rgba(0,0,0,0.18)' : 'none',
+                    overflow: 'hidden',
                 }}
             >
-                {friend.avatar ? (
-                    <span>{friend.avatar}</span>
+                {hasImage ? (
+                    <img
+                        src={friend.profileImg}
+                        alt={friend.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
                 ) : (
                     <svg
                         width={size * 0.46}
