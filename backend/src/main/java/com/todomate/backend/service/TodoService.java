@@ -3,12 +3,15 @@ package com.todomate.backend.service;
 import com.todomate.backend.domain.Category;
 import com.todomate.backend.domain.Todo;
 import com.todomate.backend.domain.User;
+import com.todomate.backend.dto.TodoListResponse;
 import com.todomate.backend.repository.CategoryRepository;
 import com.todomate.backend.repository.TodoRepository;
 import com.todomate.backend.repository.UserRepository;
 import com.todomate.backend.dto.CreateTodoRequest;
 import com.todomate.backend.dto.TodoResponse;
 import jakarta.persistence.EntityNotFoundException;
+import java.time.LocalDate;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,5 +54,36 @@ public class TodoService {
     Todo savedTodo = todoRepository.save(todo);
 
     return TodoResponse.from(savedTodo);
+  }
+
+  @Transactional(readOnly = true)
+  public List<TodoListResponse> getTodos(String userId, LocalDate todoDate, String categoryId) {
+    userRepository.findById(userId)
+        .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다."));
+
+    List<Todo> todos;
+
+    if (todoDate != null && categoryId != null && !categoryId.isBlank()) {
+      validateCategoryOwner(userId, categoryId);
+      todos = todoRepository.findByUserIdAndTodoDateAndCategoryIdOrderByOrderIndexAsc(
+          userId, todoDate, categoryId
+      );
+    } else if (todoDate != null) {
+      todos = todoRepository.findByUserIdAndTodoDateOrderByOrderIndexAsc(userId, todoDate);
+    } else if (categoryId != null && !categoryId.isBlank()) {
+      validateCategoryOwner(userId, categoryId);
+      todos = todoRepository.findByUserIdAndCategoryIdOrderByTodoDateAscOrderIndexAsc(userId, categoryId);
+    } else {
+      todos = todoRepository.findByUserIdOrderByTodoDateAscOrderIndexAsc(userId);
+    }
+
+    return todos.stream()
+        .map(TodoListResponse::from)
+        .toList();
+  }
+
+  private void validateCategoryOwner(String userId, String categoryId) {
+    categoryRepository.findByIdAndUserId(categoryId, userId)
+        .orElseThrow(() -> new EntityNotFoundException("카테고리를 찾을 수 없거나 해당 사용자의 카테고리가 아닙니다."));
   }
 }
