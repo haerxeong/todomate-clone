@@ -1,0 +1,379 @@
+.app-container {
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans KR', sans-serif;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+}
+
+/* ── 상단 메뉴 바 ── */
+.top-bar {
+  padding: 16px 20px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.top-bar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+/* ── 친구 목록 ── */
+.friend-list {
+  overflow-x: auto;
+  padding: 12px 20px 14px;
+  display: flex;
+  gap: 18px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.friend-item {
+  transition: transform 0.15s;
+  cursor: pointer;
+}
+
+.friend-item:hover {
+  transform: scale(1.07);
+}
+
+/* ── 스크롤 영역 ── */
+.scroll-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* ── 프로필 ── */
+.profile-section {
+  padding: 18px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #ececec;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+}
+
+.profile-bio {
+  font-size: 12px;
+  color: #bbb;
+  margin-top: 2px;
+}
+
+.profile-edit-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ── 캘린더 ── */
+.calendar-wrapper {
+  padding: 18px 20px 6px;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.calendar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calendar-title span {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111;
+}
+
+.calendar-nav {
+  display: flex;
+}
+
+.calendar-nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.calendar-nav button:hover {
+  background: #f2f2f5;
+}
+
+.calendar-dow-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 2px;
+}
+
+.calendar-dow-header .dow-cell {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 0;
+  color: #bbb;
+}
+
+.calendar-dow-header .dow-cell.sat { color: #4A90E2; }
+.calendar-dow-header .dow-cell.sun { color: #E25555; }
+
+.calendar-week-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-empty-cell {
+  height: 42px;
+}
+
+/* ── 날짜 셀 ── */
+.day-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 0;
+  cursor: pointer;
+}
+
+.day-bubble {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.12s;
+  border: 2px solid transparent;
+}
+
+.day-bubble.today {
+  border-color: #111;
+}
+
+.day-bubble.selected {
+  background: #111;
+}
+
+.day-bubble.all-done {
+  background: #111;
+}
+
+.day-number {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.day-number.selected { color: #fff; font-weight: 800; }
+.day-number.today    { font-weight: 800; }
+.day-number.sat      { color: #4A90E2; }
+.day-number.sun      { color: #E25555; }
+.day-number.default  { color: #222; }
+
+.day-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.day-dot.done {
+  background: #111;
+}
+
+/* ── 할일 목록 ── */
+.todo-list-wrapper {
+  padding: 4px 20px 100px;
+  animation: fadeIn 0.2s ease;
+}
+
+.todo-category {
+  margin-bottom: 4px;
+}
+
+.todo-category-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0 6px;
+}
+
+.todo-category-badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: #f2f2f5;
+  border-radius: 20px;
+  padding: 6px 14px;
+}
+
+.todo-category-badge span {
+  font-size: 13px;
+  font-weight: 700;
+  color: #444;
+}
+
+.todo-add-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.todo-add-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.todo-add-input-row input {
+  flex: 1;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-family: 'Noto Sans KR', sans-serif;
+  outline: none;
+  color: #222;
+  transition: border-color 0.15s;
+}
+
+.todo-add-input-row input:focus {
+  border-color: #111;
+}
+
+.todo-add-input-row button {
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+.todo-empty {
+  padding: 5px 4px;
+  color: #ccc;
+  font-size: 13px;
+}
+
+.todo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.todo-row:hover {
+  background: #f8f8f8;
+}
+
+.todo-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.8px solid #d5d5d5;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.14s;
+}
+
+.todo-checkbox.done {
+  border: none;
+  background: #111;
+}
+
+.todo-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  flex: 1;
+  line-height: 1.5;
+  transition: all 0.14s;
+}
+
+.todo-text.done {
+  color: #bbb;
+  text-decoration: line-through;
+}
+
+/* ── 하단 네비게이션 ── */
+.bottom-nav {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0 22px;
+}
+
+.bottom-nav button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-alarm-wrap {
+  position: relative;
+}
+
+.nav-alarm-dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #E25555;
+  border: 1.5px solid #fff;
+}
